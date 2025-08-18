@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type CalculatorStore = {
   current?: {
-    selectedMaterials: string[];
+    selectedIngredients: string[];
     quantities?: Record<string, number>;
   };
   setCurrent: (c: CalculatorStore["current"]) => void;

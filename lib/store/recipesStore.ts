@@ -5,7 +5,7 @@ export type Recipe = {
   id: string;
   name: string;
   description?: string;
-  materials: { id: string; quantity: number; unit: string }[];
+  ingredients: { id: string; quantity: number; unit: string }[];
   servings: number;
   createdAt: number;
   updatedAt: number;
