@@ -8,40 +8,59 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 背景
-        backgroundMain: '#E4DCD3',      // 背景メイン
-        backgroundCard: '#FFFFFF',       // カード・モーダル背景
-        border: '#F5F5F5',              // Divider / 境界線
+        // ベースカラー
+        background: "#E4DCD3",
+        primary: "#BFA78D",
+        secondary: "#D8C4A3",
+        // w: "#FFFFFF",
 
-        // テキスト
-        textMain: '#0C375C',             // 見出し・本文
-        textSub: '#A3A3A3',              // サブテキスト・説明文
-        textHighlight: '#BFA78D',        // 強調テキスト・リンク
-        textAccent: '#F29D35',           // 注意・強調用アクセント
+        // アクセントカラー
+        accentBlue: "#2F4D6C",     // 柔らかいブルーグレー
+        accentOrange: "#E68A2E",   // 落ち着いたオレンジ
+        accentOrangeBright: "#F29D35", // 強調用オレンジ
 
-        // ボタン
-        primary: '#BFA78D',              // プライマリボタン
-        primaryText: '#FFFFFF',          // プライマリボタン文字
-        secondary: '#D8C4A3',            // セカンダリボタン
-        secondaryText: '#0C375C',        // セカンダリボタン文字
+        // テキスト & ボーダー
+        textSub: "#A3A3A3",        // サブテキスト
+        border: "#F5F5F5",         // 境界線・区切り線
 
-        // グラフ
-        graphBlue: '#0C375C',
-        graphBeige: '#BFA78D',
-        graphSky: '#4A90E2',
-        graphOrange: '#F29D35',
-
-        // モーダル
-        modalBackground: '#FFFFFF',
-        modalBackdrop: 'rgba(0,0,0,0.5)',
-
-        // WebView
-        webviewBackground: '#E4DCD3',
-        webviewText: '#0C375C',
-        webviewLink: '#BFA78D',
-        webviewHeading: '#0C375C'
+        // 円グラフや分類用の淡色パレット
+        palette: {
+          orange: "#F7CDA0",
+          beige: "#EEDDC8",
+          olive: "#D9E2C1",
+          mint: "#C9E8D9",
+          aqua: "#C9E3EB",
+          blue: "#B6CDE0",
+          purple: "#D7CBEF",
+          lavender: "#E3DDED",
+          rose: "#F2D1D6",
+          salmon: "#F8C8B6",
+          mustard: "#F3E0A1",
+          pistachio: "#DCE7B5",
+          cyan: "#A7D8E8",           // 新規追加：円グラフ用青緑
+          grayPurple: "#D0D0E8",     // 新規追加：円グラフ用淡グレーパープル
+        },
       },
     },
   },
   plugins: [],
 };
+
+// 円グラフ用配色順リスト
+const chartColors = [
+  "#F7CDA0",   // ソフトオレンジ（暖色系）
+  "#C9E8D9",   // ミントグリーン（寒色系）
+  "#F2D1D6",   // ローズピンク（暖色系）
+  "#B6CDE0",   // スモーキーブルー（寒色系）
+  "#F8C8B6",   // サーモンピンク（暖色系）
+  "#D7CBEF",   // パウダーパープル（紫系）
+  "#F3E0A1",   // ペールマスタード（暖色系）
+  "#C9E3EB",   // ペールアクア（寒色系）
+  "#DCE7B5",   // ピスタチオ（寒色寄り）
+  "#EEDDC8",   // ミルクティーベージュ（暖色系）
+  "#A7D8E8",   // シアン（青緑、寒色系）
+  "#D0D0E8",   // グレーパープル（淡紫系）
+  "#E68A2E",   // 落ち着いたオレンジ（アクセント）
+  "#F29D35",   // 強調オレンジ（アクセント、必要な場合）
+];
+

@@ -1,31 +1,66 @@
-import { create } from "zustand";
-import { v4 as uuidv4 } from "uuid";
-import { Ingredient } from "../types";
+import { create } from 'zustand';
+import { Ingredient } from '../types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persist } from 'zustand/middleware';
+import { v4 as uuidv4 } from 'uuid';
 
 type IngredientsStore = {
   ingredients: Ingredient[];
-  addIngredient: (i: Omit<Ingredient, "id" | "createdAt" | "updatedAt">) => void;
-  updateIngredient: (i: Ingredient) => void;
+  addIngredient: (data: Omit<Ingredient, 'id' | 'createdAt' | 'updatedAt'>) => void;
+  updateIngredient: (id: string, data: Partial<Omit<Ingredient, 'id' | 'createdAt' | 'updatedAt'>>) => void;
   deleteIngredient: (id: string) => void;
+  getIngredientById: (id: string) => Ingredient | undefined;
 };
 
-export const useIngredientsStore = create<IngredientsStore>((set) => ({
-  ingredients: [],
-  addIngredient: (i) =>
-    set((state) => ({
-      ingredients: [
-        ...state.ingredients,
-        { ...i, id: uuidv4(), createdAt: Date.now(), updatedAt: Date.now() },
-      ],
-    })),
-  updateIngredient: (i) =>
-    set((state) => ({
-      ingredients: state.ingredients.map((ing) =>
-        ing.id === i.id ? { ...i, updatedAt: Date.now() } : ing
-      ),
-    })),
-  deleteIngredient: (id) =>
-    set((state) => ({
-      ingredients: state.ingredients.filter((ing) => ing.id !== id),
-    })),
-}));
+// PersistStorage<T> 用のラッパー
+const asyncStoragePersistWrapper = <T>() => ({
+  getItem: async (name: string): Promise<{ state: T } | null> => {
+    const json = await AsyncStorage.getItem(name);
+    if (!json) return null;
+    try {
+      const data = JSON.parse(json);
+      return { state: data } as { state: T };
+    } catch {
+      return null;
+    }
+  },
+  setItem: async (name: string, value: { state: T }) => {
+    await AsyncStorage.setItem(name, JSON.stringify(value.state));
+  },
+  removeItem: async (name: string) => {
+    await AsyncStorage.removeItem(name);
+  },
+});
+
+export const useIngredientsStore = create<IngredientsStore>()(
+  persist(
+    (set, get) => ({
+      ingredients: [],
+      addIngredient: (data) => {
+        const now = Date.now();
+        const newIngredient: Ingredient = {
+          id: uuidv4(),
+          createdAt: now,
+          updatedAt: now,
+          ...data,
+        };
+        set({ ingredients: [...get().ingredients, newIngredient] });
+      },
+      updateIngredient: (id, data) => {
+        set({
+          ingredients: get().ingredients.map((ing) =>
+            ing.id === id ? { ...ing, ...data, updatedAt: Date.now() } : ing
+          ),
+        });
+      },
+      deleteIngredient: (id) => {
+        set({ ingredients: get().ingredients.filter((ing) => ing.id !== id) });
+      },
+      getIngredientById: (id) => get().ingredients.find((ing) => ing.id === id),
+    }),
+    {
+      name: 'ingredients-storage',
+      storage: asyncStoragePersistWrapper<IngredientsStore>(), // state ラップ済みラッパー
+    }
+  )
+);

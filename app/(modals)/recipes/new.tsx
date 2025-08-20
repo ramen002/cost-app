@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { useRouter } from "expo-router";
-import { Button } from "../../../components/ui/Button";
+import { Button, ButtonText } from "../../../components/ui/button";
 
 export default function NewRecipeModal() {
   const router = useRouter();
@@ -9,7 +9,7 @@ export default function NewRecipeModal() {
     <View className="flex-1 items-center justify-center bg-white">
       <Text className="text-lg font-bold">レシピを追加</Text>
       {/* 入力フォームをここに */}
-      <Button onPress={() => router.back()}>閉じる</Button>
+      <Button onPress={() => router.back()} action="primary"><ButtonText>閉じる</ButtonText></Button>
     </View>
   );
 }

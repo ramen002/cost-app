@@ -1,22 +1,20 @@
-// lib/types.ts
-
 // 食材（材料）
 export type Ingredient = {
   id: string;
   name: string;
-  unit: string;       // g, ml, 個 など
+  unit: 'g' | 'ml' | '個' | string;  // 必須プリセット＋拡張用string
   cost: number;       // 単価（円/単位）
   stock: number;      // 在庫数量
-  category?: string;  // 調味料・野菜・肉 など
+  category?: string;  // 調味料・野菜・肉など
   createdAt: number;
   updatedAt: number;
 };
 
-// レシピに紐づく食材使用量
+// レシピ内の食材使用量
 export type IngredientUsage = {
   ingredientId: string; // Ingredient.id
   quantity: number;     // 使用量
-  unit: string;         // 使用単位（g, ml, 個など）
+  unit?: string;        // 使用単位（省略可：Ingredient.unitを参照）
 };
 
 // レシピ
@@ -25,30 +23,31 @@ export type Recipe = {
   name: string;
   description?: string;
   ingredients: IngredientUsage[];
-  servings: number;   // 何人分か
+  servings: number;   // 標準量（人数や個数）
   createdAt: number;
   updatedAt: number;
 };
 
-// 計算状態
+// 原価計算状態
 export type CalculatorState = {
-  selectedIngredients: string[];
-  quantities: Record<string, number>;
+  ingredients: Record<string, number>; // ingredientId -> 使用量
+  // UI用に順序を保持したい場合
+  selectedOrder?: string[];
 };
 
-// 計算結果
+// 原価計算結果
 export type CalculatorResult = {
-  costTotal: number;
-  price?: number;
-  costRate?: number;    // 原価率
-  profitRate?: number;  // 利益率
+  costTotal: number;      // 総原価
+  price?: number;         // 販売価格（入力済みの場合）
+  costRate?: number;      // 原価率
+  profitRate?: number;    // 利益率
+  profit?: number;        // 利益額
 };
 
 // 計算履歴
 export type HistoryItem = {
   id: string;
   recipe: Recipe;
-  timestamp: number;
+  result: CalculatorResult;
+  createdAt: number;      // 計算日時
 };
-
-
