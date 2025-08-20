@@ -1,6 +1,7 @@
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import { useState } from 'react';
 import { useHistoryStore } from '../../../lib/store/historyStore';
+import { Button } from "@/~/components/ui/button";
 
 export default function HomeScreen() {
   const history = useHistoryStore((s) => s.history);
@@ -24,21 +25,13 @@ export default function HomeScreen() {
         ))}
       </ScrollView>
 
-      <View className="flex-row justify-around mt-4">
-        <Pressable
-          className="bg-primary px-4 py-2 rounded"
-          onPress={() => setModalVisible('ingredient')}
-        >
-          <Text className="text-white">材料追加</Text>
-        </Pressable>
+      <Button onPress={() => setModalVisible('ingredient')}>
+        <Text className="text-white">材料追加</Text>
+      </Button>
 
-        <Pressable
-          className="bg-primary px-4 py-2 rounded"
-          onPress={() => setModalVisible('recipe')}
-        >
-          <Text className="text-white">レシピ追加</Text>
-        </Pressable>
-      </View>
+      <Button onPress={() => setModalVisible('recipe')}>
+        <Text className="text-white">レシピ追加</Text>
+      </Button>
 
       {/* {modalVisible && (
         <BottomSheet

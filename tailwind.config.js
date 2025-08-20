@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./app/**/*.{js,jsx,ts,tsx}",
-    "./components/**/*.{js,jsx,ts,tsx}"
+    "./components/**/*.tsx",
   ],
   presets: [require("nativewind/preset")],
   theme: {
@@ -12,7 +12,6 @@ module.exports = {
         background: "#E4DCD3",
         primary: "#BFA78D",
         secondary: "#D8C4A3",
-        // w: "#FFFFFF",
 
         // アクセントカラー
         accentBlue: "#2F4D6C",     // 柔らかいブルーグレー

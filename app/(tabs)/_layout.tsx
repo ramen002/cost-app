@@ -1,15 +1,17 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { colors } from "@/theme";
 
 export default function TabsLayout() {
   return (
     <SafeAreaProvider>
       <Tabs
         screenOptions={{
-          headerShown: true,               // ヘッダー表示の有無
-          tabBarActiveTintColor: "blue",   // アクティブ時の色
-          tabBarInactiveTintColor: "gray", // 非アクティブ時の色
+          headerShown: true,   // ヘッダー表示の有無
+          tabBarActiveTintColor: colors.accentBlue,   // アクティブ時の色
+          tabBarInactiveTintColor: colors.textSub,      // 非アクティブ時の色
+          tabBarStyle: { backgroundColor: colors.background }
         }}
       >
         {/* ホームタブ */}
