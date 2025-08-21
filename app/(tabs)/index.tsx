@@ -2,7 +2,7 @@ import { View, Text, ScrollView, Pressable } from 'react-native';
 import { useState } from 'react';
 import { useHistoryStore } from '../../lib/store/historyStore';
 import { Modal } from "@/components/Modal";
-import { Button } from "@/~/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "expo-router";
 
 export default function Home() {
@@ -28,23 +28,10 @@ export default function Home() {
         ))}
       </ScrollView>
 
-      <Button className="bg-primary" onPress={() => setModalVisible('ingredient')}>
-        <Text className="text-white">材料追加</Text>
-      </Button>
-
-      <Button onPress={() => setModalVisible('recipe')}>
-        <Text className="text-white">レシピ追加</Text>
-      </Button>
-
-
-      <Button onPress={() => router.back()}>
-        <Text className="text-white">back</Text>
-      </Button>
-
-      <Button onPress={() => router.push("/settings")}>
-        <Text className="text-white">設定</Text>
-      </Button>
-
+      <Button title="材料追加" onPress={() => setModalVisible('ingredient')} />
+      <Button title="レシピ追加" onPress={() => setModalVisible('recipe')} />
+      <Button title="back" onPress={() => router.back()} />
+      <Button title="設定sss" onPress={() => router.push("/settings")} />
 
       <Modal visible={modalVisible === 'ingredient'} type="center" title="材料追加" onClose={() => setModalVisible(null)}>
         <Text>ここに材料追加フォーム</Text>

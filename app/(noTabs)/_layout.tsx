@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { View, Text, ScrollView, Pressable } from 'react-native';
-import { BackButton } from "@/components/BackButton";
+import { IconButton } from "@/components/ui/IconButton";
 import { colors } from "@/theme";
 
 export default function NoTabsLayout() {
@@ -8,7 +8,7 @@ export default function NoTabsLayout() {
     <Stack
       screenOptions={{
         headerShown: true,
-        headerLeft: () => <BackButton />,
+        headerLeft: () => <IconButton />,
         headerStyle: { backgroundColor: colors.background },
         headerShadowVisible: false,
       }}

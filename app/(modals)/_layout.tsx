@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { CloseButton } from "@/components/CloseButton";
+import { IconButton } from "@/components/ui/IconButton";
 import { colors } from "@/theme";
 
 export default function ModalLayout() {
@@ -7,7 +7,7 @@ export default function ModalLayout() {
     <Stack
       screenOptions={{
         headerShown: true,
-        headerRight: () => <CloseButton />,
+        headerRight: () => <IconButton name="close" />,
         headerStyle: { backgroundColor: colors.background },
         headerShadowVisible: false,
       }}
