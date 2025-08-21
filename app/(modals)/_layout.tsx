@@ -12,8 +12,8 @@ export default function ModalLayout() {
         headerStyle: { backgroundColor: colors.background },
         headerShadowVisible: false,
         headerTitleStyle: {
-          fontWeight: "bold", 
-          color: colors.accentBlue
+          fontWeight: "bold",
+          color: colors.accentBlue,
         },
       }}
     >
@@ -38,6 +38,10 @@ export default function ModalLayout() {
         options={{ title: "レシピ編集" }}
       />
 
+      <Stack.Screen
+        name="recipes/[id]"
+        options={{ title: "レシピ詳細" }}
+      />
 
 
       {/* 追加モーダル画面もここに Stack.Screen で追加 */}

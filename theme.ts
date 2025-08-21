@@ -1,5 +1,6 @@
 export const colors = {
   // ベースカラー
+  white: "#FFFF",
   background: "#E4DCD3",
   primary: "#BFA78D",
   secondary: "#D8C4A3",

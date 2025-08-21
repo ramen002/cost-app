@@ -36,7 +36,7 @@ export default function TabsLayout() {
           <Tabs.Screen
             name="ingredients/index"
             options={{
-              title: "食材",
+              title: "食材一覧",
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="leaf" color={color} size={size} />
               ),
@@ -47,7 +47,7 @@ export default function TabsLayout() {
           <Tabs.Screen
             name="recipes/index"
             options={{
-              title: "レシピ",
+              title: "レシピ一覧",
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="book" color={color} size={size} />
               ),

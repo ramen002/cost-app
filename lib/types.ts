@@ -4,8 +4,8 @@ export type Ingredient = {
   name: string;
   unit: 'g' | 'ml' | '個' | string;  // 必須プリセット＋拡張用string
   cost: number;       // 単価（円/単位）
-  stock: number;      // 在庫数量
-  category?: string;  // 調味料・野菜・肉など
+  stock?: number;      // 在庫数量
+  categoryId?: string;  // Category.id と紐付け
   createdAt: number;
   updatedAt: number;
 };
@@ -24,6 +24,15 @@ export type Recipe = {
   description?: string;
   ingredients: IngredientUsage[];
   servings: number;   // 標準量（人数や個数）
+  price?: number;    // 販売価格
+  categoryId?: string;  // Category.id と紐付け
+  createdAt: number;
+  updatedAt: number;
+};
+
+export type Category = {
+  id: string;
+  name: string;
   createdAt: number;
   updatedAt: number;
 };

@@ -1,16 +1,19 @@
 import { View, Text, TextInput, ScrollView, Alert } from "react-native";
-import { useRouter, useLocalSearchParams } from "expo-router";
-import { Button } from "@/components/ui/button";
+import { useRouter, useLocalSearchParams, useNavigation } from "expo-router";
+import { InputWithLabel } from "@/components/ui/inputWithLabel";
 import { useRecipesStore } from "@/lib/store/recipesStore";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function RecipeEdit() {
   const router = useRouter();
+  const navigation = useNavigation();
   const { id } = useLocalSearchParams();
   const { getRecipeById, updateRecipe, deleteRecipe } = useRecipesStore();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [servings, setServings] = useState("1");
+  const [price, setPrice] = useState("");
 
   useEffect(() => {
     if (id) {
@@ -19,6 +22,7 @@ export default function RecipeEdit() {
         setName(recipe.name);
         setDescription(recipe.description || "");
         setServings(recipe.servings.toString());
+        setPrice(recipe.price?.toString() || "");
       }
     }
   }, [id]);
@@ -35,11 +39,18 @@ export default function RecipeEdit() {
       return;
     }
 
+    const priceNumber = price.trim() ? parseFloat(price) : undefined;
+    if (priceNumber !== undefined && priceNumber <= 0) {
+      Alert.alert("エラー", "販売価格は正の数値を入力してください");
+      return;
+    }
+
     try {
       updateRecipe(id as string, {
         name: name.trim(),
         description: description.trim(),
-        servings: servingsNumber
+        servings: servingsNumber,
+        price: priceNumber
       });
       router.back();
     } catch (error) {
@@ -62,64 +73,56 @@ export default function RecipeEdit() {
     );
   };
 
-  return (
-    <View className="flex-1 bg-background">
-      <ScrollView className="flex-1 p-4">
-        <Text className="text-2xl font-bold mb-6">レシピを編集</Text>
-        
-        <View className="mb-4">
-          <Text className="text-lg font-semibold mb-2">レシピ名 *</Text>
-          <TextInput
-            className="border border-gray-300 rounded-lg p-3 bg-white"
-            value={name}
-            onChangeText={setName}
-            placeholder="例: カレーライス"
-          />
-        </View>
-
-        <View className="mb-4">
-          <Text className="text-lg font-semibold mb-2">メモ</Text>
-          <TextInput
-            className="border border-gray-300 rounded-lg p-3 bg-white"
-            value={description}
-            onChangeText={setDescription}
-            placeholder="レシピのポイントやメモ"
-            multiline
-            numberOfLines={3}
-          />
-        </View>
-
-        <View className="mb-6">
-          <Text className="text-lg font-semibold mb-2">標準量</Text>
-          <TextInput
-            className="border border-gray-300 rounded-lg p-3 bg-white"
-            value={servings}
-            onChangeText={setServings}
-            placeholder="例: 4"
-            keyboardType="numeric"
-          />
-          <Text className="text-gray-500 mt-1">何人分または何個分かを入力</Text>
-        </View>
-      </ScrollView>
-
-      <View className="flex-row justify-between p-4 bg-white">
-        <Button 
-          title="キャンセル" 
-          onPress={() => router.back()} 
-          className="bg-transparent border border-primary"
+  // ヘッダーの右側に保存ボタンを設定
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          className="bg-accentBlue"
+          title="保存"
+          icon="checkmark"
+          onPress={handleSave}
+          pressableClassName="px-3"
         />
-        <View className="flex-row">
-          <Button 
-            title="削除" 
-            onPress={handleDelete} 
-            className="bg-red-500 mr-2"
-          />
-          <Button 
-            title="保存" 
-            onPress={handleSave} 
-          />
-        </View>
-      </View>
+      ),
+    });
+  }, [navigation, handleSave]);
+
+  return (
+    <View className="flex-1 bg-background p-4">
+      <ScrollView className="flex-1 p-4">
+
+        <InputWithLabel
+          label="レシピ名 *"
+          placeholder="例: カレーライス"
+          value={name}
+          onChangeText={setName}
+          showClearButton
+        />
+
+        <InputWithLabel
+          label="メモ"
+          placeholder="例: レシピのポイントやメモ"
+          value={description}
+          onChangeText={setDescription}
+        />
+
+        <InputWithLabel
+          label="標準量"
+          placeholder="例: 4"
+          value={servings}
+          onChangeText={setServings}
+          keyboardType="numeric"
+        />
+
+        <InputWithLabel
+          label="販売価格"
+          placeholder="例: 400"
+          value={price}
+          onChangeText={setPrice}
+          keyboardType="numeric"
+        />
+      </ScrollView>
     </View>
   );
 }

@@ -12,6 +12,7 @@ export default function NewRecipeModal() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [servings, setServings] = useState("1");
+  const [price, setPrice] = useState("");
 
   const handleSave = () => {
     if (!name.trim()) {
@@ -25,12 +26,19 @@ export default function NewRecipeModal() {
       return;
     }
 
+    const priceNumber = price.trim() ? parseFloat(price) : undefined;
+    if (priceNumber !== undefined && priceNumber <= 0) {
+      Alert.alert("エラー", "販売価格は正の数値を入力してください");
+      return;
+    }
+
     try {
       addRecipe({
         name: name.trim(),
         description: description.trim(),
         ingredients: [],
-        servings: servingsNumber
+        servings: servingsNumber,
+        price: priceNumber,
       });
       router.back();
     } catch (error) {
@@ -43,7 +51,13 @@ export default function NewRecipeModal() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button title="保存" onPress={handleSave} pressableClassName="px-3" />
+        <Button
+          className="bg-accentBlue"
+          title="保存"
+          icon="checkmark"
+          onPress={handleSave}
+          pressableClassName="px-3"
+        />
       ),
     });
   }, [navigation, handleSave]);
@@ -72,6 +86,14 @@ export default function NewRecipeModal() {
           placeholder="例: 4"
           value={servings}
           onChangeText={setServings}
+          keyboardType="numeric"
+        />
+
+        <InputWithLabel
+          label="販売価格"
+          placeholder="例: 400"
+          value={price}
+          onChangeText={setPrice}
           keyboardType="numeric"
         />
       </ScrollView>
