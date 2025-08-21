@@ -66,7 +66,7 @@ export default function RecipeDetail() {
   return (
     <View className="flex-1 bg-background">
       <ScrollView className="px-6 pt-4">
-        <View className="bg-secondary rounded-lg">
+        <View className="bg-secondary">
           <Text className="font-bold p-3">{recipe.name}</Text>
         </View>
         
@@ -74,7 +74,7 @@ export default function RecipeDetail() {
         {recipe.description ? (
           <View className="mb-4">
             <Text className="text-lg font-semibold mb-2">メモ</Text>
-            <Text className="border border-gray-300 rounded-lg p-3 bg-white">
+            <Text className="border border-gray-300 p-3 bg-white">
               {recipe.description}
             </Text>
           </View>
@@ -82,7 +82,7 @@ export default function RecipeDetail() {
 
         <View className="mb-4">
           <Text className="text-lg font-semibold mb-2">標準量</Text>
-          <Text className="border border-gray-300 rounded-lg p-3 bg-white">
+          <Text className="border border-gray-300 p-3 bg-white">
             {recipe.servings} 人分 / 個
           </Text>
         </View>
@@ -90,7 +90,7 @@ export default function RecipeDetail() {
         {recipe.price !== undefined ? (
           <View className="mb-4">
             <Text className="text-lg font-semibold mb-2">販売価格</Text>
-            <Text className="border border-gray-300 rounded-lg p-3 bg-white">
+            <Text className="border border-gray-300 p-3 bg-white">
               ¥{recipe.price}
             </Text>
           </View>
@@ -98,14 +98,14 @@ export default function RecipeDetail() {
 
         <View className="mb-4">
           <Text className="text-lg font-semibold mb-2">原価</Text>
-          <Text className="border border-gray-300 rounded-lg p-3 bg-white">
+          <Text className="border border-gray-300 p-3 bg-white">
             ¥{totalCost.toFixed(2)}
           </Text>
         </View>
 
         <View className="mb-4">
           <Text className="text-lg font-semibold mb-2">1人分 / 1個あたりの原価</Text>
-          <Text className="border border-gray-300 rounded-lg p-3 bg-white">
+          <Text className="border border-gray-300 p-3 bg-white">
             ¥{costPerServing.toFixed(2)}
           </Text>
         </View>
@@ -116,7 +116,7 @@ export default function RecipeDetail() {
             const ingredient = ingredientDetails[index];
             if (!ingredient) return null;
             return (
-              <View key={index} className="border border-gray-300 rounded-lg p-3 bg-white mb-2">
+              <View key={index} className="border border-gray-300 p-3 bg-white mb-2">
                 <Text className="font-medium">{ingredient.name}</Text>
                 <Text>{usage.quantity} {ingredient.unit}</Text>
               </View>

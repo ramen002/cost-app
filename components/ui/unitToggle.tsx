@@ -23,7 +23,7 @@ export function UnitToggle<T extends string>({
           <TouchableOpacity
             key={unit}
             className={cn(
-              "w-12 py-2.5 mt-2 rounded-md mr-1 items-center",
+              "w-12 py-2.5 mt-2 rounded-2xl mr-1 items-center",
               value === unit
                 ? "bg-accentBlue border-accentBlue"
                 : "border border-accentBlue"

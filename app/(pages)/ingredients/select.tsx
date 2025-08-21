@@ -67,7 +67,7 @@ export default function SelectIngredientModal() {
         {ingredients.map((ingredient) => (
           <TouchableOpacity
             key={ingredient.id}
-            className={`flex-row items-center justify-between border border-primary rounded-xl p-4 mb-2 ${selectedIngredientIds.has(ingredient.id) ? 'bg-primary/10' : 'bg-white'}`}
+            className={`flex-row items-center justify-between border border-primary rounded-2xl p-4 mb-2 ${selectedIngredientIds.has(ingredient.id) ? 'bg-primary/10' : 'bg-white'}`}
             onPress={() => handleSelect(ingredient.id)}
           >
             <View>
@@ -84,7 +84,7 @@ export default function SelectIngredientModal() {
           icon="add"
           outline
           className="bg-white border border-primary mt-4"
-          onPress={() => router.push('/(modals)/ingredients/form')}
+          onPress={() => router.push('/ingredients/form')}
         />
       </ScrollView>
     </View>

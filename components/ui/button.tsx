@@ -37,7 +37,7 @@ const Button = React.forwardRef<View, ButtonProps>(({
       <View
         ref={ref}
         className={cn(
-          'flex-row items-center justify-center rounded-xl h-10 px-4 py-2',
+          'flex-row items-center justify-center rounded-full h-10 px-4 py-2',
           buttonClassName
         )}>
         {icon && <Ionicons name={icon} size={18} color={outline ? colors.primary : colors.white } style={{ marginRight: 6 }} />}

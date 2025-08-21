@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import { useState } from 'react';
 import { useHistoryStore } from '../../lib/store/historyStore';
-import { Modal } from "@/components/Modal";
+import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "expo-router";
 

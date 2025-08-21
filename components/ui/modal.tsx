@@ -27,8 +27,8 @@ export const Modal: React.FC<ModalProps> = ({
   }[type];
 
   const contentStyle = {
-    center: "bg-white w-full rounded-xl p-6 shadow",
-    bottom: "bg-white w-full rounded-t-xl p-6 shadow-lg",
+    center: "bg-white w-full rounded-2xl p-6 shadow",
+    bottom: "bg-white w-full rounded-t-2xl p-6 shadow",
     full: "flex-1",
   }[type];
 
@@ -41,7 +41,7 @@ export const Modal: React.FC<ModalProps> = ({
           <Pressable
             onPress={onClose}
             className={cn(
-              type === "full" ? "mt-4 py-2 px-4 bg-gray-200 rounded-xl items-center" : "mt-4 py-2 px-4 bg-gray-200 rounded-xl items-center"
+              type === "full" ? "mt-4 py-2 px-4 bg-gray-200 rounded-2xl items-center" : "mt-4 py-2 px-4 bg-gray-200 rounded-2xl items-center"
             )}
           >
             <Text className="text-center">閉じる</Text>

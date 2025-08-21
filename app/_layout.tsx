@@ -10,19 +10,12 @@ export default function RootLayout() {
         
         {/* 開き方の設定のみ */}
         <Stack.Screen
-          name="(noTabs)"
+          name="(pages)"
           options={{
             presentation: "card",
           }}
         />
 
-        {/* モーダル画面 */}
-        <Stack.Screen
-          name="(modals)"
-          options={{
-            presentation: "card",
-          }}
-        />
       </Stack>
     </SafeAreaProvider>
   );

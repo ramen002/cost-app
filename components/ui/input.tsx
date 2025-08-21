@@ -7,6 +7,7 @@ import { IconButton } from './iconButton';
 type InputProps = React.ComponentProps<typeof TextInput> & {
   containerClassName?: string;
   showClearButton?: boolean;
+  multiline?: boolean;
 };
 
 export const Input = React.forwardRef<TextInput, InputProps>(
@@ -29,11 +30,13 @@ export const Input = React.forwardRef<TextInput, InputProps>(
     };
     
     const clearButton = showClearButton && internalValue !== '';
+    const isMultiline = props.multiline;
 
     return (
       <View
         className={cn(
-          'flex-row items-center rounded-xl border border-primary bg-white pl-4 h-12',
+          'flex-row items-center rounded-xl border border-primary bg-white pl-4',
+          isMultiline ? 'min-h-32' : 'h-12',
           containerClassName
         )}
       >
@@ -43,6 +46,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(
           placeholderTextColor={colors.placeholder}
           value={value !== undefined ? value : internalValue}
           onChangeText={handleChangeText}
+          multiline={isMultiline}
           {...props}
         />
         {clearButton && (

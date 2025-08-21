@@ -8,11 +8,19 @@ type InputWithLabelProps = React.ComponentProps<typeof Input> & {
   label: string;
   className?: string;
   containerClassName?: string;
-  showClearButton?: boolean; 
+  showClearButton?: boolean;
+  multiline?: boolean;
 };
 
 export const InputWithLabel = React.forwardRef<React.ComponentRef<typeof Input>, InputWithLabelProps>(
-  ({ label, className, containerClassName, showClearButton = false, ...props }, ref) => {
+  ({
+    label,
+    className,
+    containerClassName,
+    showClearButton = false,
+    multiline,
+    ...props
+  }, ref) => {
     return (
       <View className={cn('mb-4', containerClassName)}>
         <Label text={label} className="mb-1" />
@@ -20,6 +28,7 @@ export const InputWithLabel = React.forwardRef<React.ComponentRef<typeof Input>,
           ref={ref}
           className={className}
           showClearButton={showClearButton}
+          multiline={multiline}
           {...props}
         />
       </View>

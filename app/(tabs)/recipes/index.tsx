@@ -41,7 +41,7 @@ export default function Recipes() {
           icon="add"
           title="追加"
           pressableClassName="pr-6"
-          onPress={() => router.push('/(modals)/recipes/form')}
+          onPress={() => router.push('/recipes/form')}
         />
       ),
     });
@@ -56,14 +56,14 @@ export default function Recipes() {
         <ScrollView className="p-6">
           {recipes.map((recipe) => (
             <SwipeableListItem
-              className="bg-white rounded-lg"
+              className="bg-white rounded-2xl"
               key={recipe.id}
               onDuplicate={() => handleDuplicate(recipe)}
               onDelete={() => handleDelete(recipe.id, recipe.name)}
             >
               <TouchableOpacity 
-                className="rounded-lg p-4 flex-row justify-between items-center"
-                onPress={() => router.push(`/(modals)/recipes/${recipe.id}`)}
+                className="rounded-2xl p-4 flex-row justify-between items-center"
+                onPress={() => router.push(`/recipes/${recipe.id}`)}
               >
                 {/* 左側 */}
                 <View>

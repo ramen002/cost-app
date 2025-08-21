@@ -5,7 +5,7 @@ import { useRecipesStore } from "@/lib/store/recipesStore";
 import { useIngredientsStore } from "@/lib/store/ingredientsStore";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { IngredientSelector } from "@/components/recipe/IngredientSelector";
+import { IngredientSelector } from "@/components/IngredientSelector";
 import { IngredientUsage } from "@/lib/types";
 
 export default function RecipeForm() {
@@ -140,15 +140,14 @@ export default function RecipeForm() {
           showClearButton
         />
 
-        <InputWithLabel
-          label="メモ"
-          placeholder="例: レシピのポイントやメモ"
-          value={description}
-          onChangeText={setDescription}
+        <IngredientSelector
+          selectedIngredients={localSelectedIngredients}
+          onIngredientsChange={setLocalSelectedIngredients}
+          onAddIngredients={() => router.push('/ingredients/select')}
         />
 
         <InputWithLabel
-          label="標準量"
+          label="提供数（◯個 / ◯人前）"
           placeholder="例: 4"
           value={servings}
           onChangeText={setServings}
@@ -163,11 +162,14 @@ export default function RecipeForm() {
           keyboardType="numeric"
         />
 
-        <IngredientSelector
-          selectedIngredients={localSelectedIngredients}
-          onIngredientsChange={setLocalSelectedIngredients}
-          onAddIngredients={() => router.push('/(modals)/ingredients/select')}
+        <InputWithLabel
+          label="メモ"
+          multiline
+          placeholder="例: レシピのポイントやメモ"
+          value={description}
+          onChangeText={setDescription}
         />
+
       </ScrollView>
     </View>
   );

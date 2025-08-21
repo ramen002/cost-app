@@ -34,7 +34,7 @@ export const SwipeableListItem: React.FC<SwipeableListItemProps> = ({
         )}
         {onDelete && (
           <View 
-            className="bg-red justify-center items-center w-20 rounded-tr-lg rounded-br-lg"
+            className="bg-red justify-center items-center w-20 rounded-tr-2xl rounded-br-2xl"
             onTouchEnd={(e) => {
               e.preventDefault();
               onDelete();
@@ -48,7 +48,7 @@ export const SwipeableListItem: React.FC<SwipeableListItemProps> = ({
   };
 
   return (
-    <View className="bg-white mb-5 shadow-sm rounded-lg">
+    <View className="bg-white mb-5 shadow-sm rounded-2xl">
     <Swipeable
       renderRightActions={renderRightActions}
       rightThreshold={rightThreshold}
