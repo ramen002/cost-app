@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { HistoryItem } from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persist } from 'zustand/middleware';
-import { v4 as uuidv4 } from 'uuid';
+import { generateId } from '../utils';
 
 type HistoryStore = {
   history: HistoryItem[];
@@ -36,7 +36,7 @@ export const useHistoryStore = create<HistoryStore>()(
       history: [],
       addHistory: (item) => {
         const newItem: HistoryItem = {
-          id: uuidv4(),
+          id: generateId(),
           createdAt: Date.now(),
           ...item,
         };

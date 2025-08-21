@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { Recipe } from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persist } from 'zustand/middleware';
-import { v4 as uuidv4 } from 'uuid';
+import { generateId } from '../utils';
 
 type RecipesStore = {
   recipes: Recipe[];
@@ -39,7 +39,7 @@ export const useRecipesStore = create<RecipesStore>()(
       addRecipe: (data) => {
         const now = Date.now();
         const newRecipe: Recipe = {
-          id: uuidv4(),
+          id: generateId(),
           createdAt: now,
           updatedAt: now,
           ...data,
