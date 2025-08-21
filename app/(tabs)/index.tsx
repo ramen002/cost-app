@@ -1,14 +1,17 @@
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import { useState } from 'react';
-import { useHistoryStore } from '../../../lib/store/historyStore';
+import { useHistoryStore } from '../../lib/store/historyStore';
+import { Modal } from "@/components/Modal";
 import { Button } from "@/~/components/ui/button";
+import { useRouter } from "expo-router";
 
-export default function HomeScreen() {
+export default function Home() {
   const history = useHistoryStore((s) => s.history);
   const [modalVisible, setModalVisible] = useState<'ingredient' | 'recipe' | null>(null);
+    const router = useRouter();
 
   return (
-    <View className="flex-1 bg-background p-4">
+    <View className="flex-1 bg-background items-center justify-center">
       <Text className="text-xl font-bold mb-4">最近の計算履歴</Text>
 
       <ScrollView>
@@ -25,7 +28,7 @@ export default function HomeScreen() {
         ))}
       </ScrollView>
 
-      <Button onPress={() => setModalVisible('ingredient')}>
+      <Button className="bg-primary" onPress={() => setModalVisible('ingredient')}>
         <Text className="text-white">材料追加</Text>
       </Button>
 
@@ -33,14 +36,24 @@ export default function HomeScreen() {
         <Text className="text-white">レシピ追加</Text>
       </Button>
 
-      {/* {modalVisible && (
-        <BottomSheet
-          visible={!!modalVisible}
-          onClose={() => setModalVisible(null)}
-        >
-          <Text className="text-textSub">ここにフォームコンポーネントを配置</Text>
-        </BottomSheet>
-      )} */}
+
+      <Button onPress={() => router.back()}>
+        <Text className="text-white">back</Text>
+      </Button>
+
+      <Button onPress={() => router.push("/settings")}>
+        <Text className="text-white">設定</Text>
+      </Button>
+
+
+      <Modal visible={modalVisible === 'ingredient'} type="center" title="材料追加" onClose={() => setModalVisible(null)}>
+        <Text>ここに材料追加フォーム</Text>
+      </Modal>
+
+      <Modal visible={modalVisible === 'recipe'} type="bottom" title="レシピ追加" onClose={() => setModalVisible(null)}>
+        <Text>ここにレシピ追加フォーム</Text>
+      </Modal>
+{/* full */}
     </View>
   );
 }

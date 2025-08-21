@@ -1,24 +1,29 @@
 import { Stack } from "expo-router";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { CloseButton } from "@/components/CloseButton";
+import { colors } from "@/theme";
 
 export default function ModalLayout() {
   return (
-    <SafeAreaProvider>
-      <Stack
-        screenOptions={{
-          headerShown: true,           // 必要に応じてヘッダー表示
-          presentation: "modal",       // モーダル表示
-        }}
-      >
-        {/* ここに (modals) 配下の各画面が入る */}
-        {/* 例: ingredients/new.tsx */}
-        <Stack.Screen name="ingredients/new" options={{ title: "新規食材" }} />
+    <Stack
+      screenOptions={{
+        headerShown: true,
+        headerRight: () => <CloseButton />,
+        headerStyle: { backgroundColor: colors.background },
+        headerShadowVisible: false,
+      }}
+    >
 
-        {/* 例: recipes/edit/[id].tsx */}
-        <Stack.Screen name="recipes/edit/[id]" options={{ title: "レシピ編集" }} />
+      <Stack.Screen
+        name="ingredients/new"
+        options={{ title: "新規食材" }}
+      />
 
-        {/* 追加モーダル画面もここに Stack.Screen で追加 */}
-      </Stack>
-    </SafeAreaProvider>
+      <Stack.Screen
+        name="recipes/edit/[id]"
+        options={{ title: "レシピ編集" }}
+      />
+
+      {/* 追加モーダル画面もここに Stack.Screen で追加 */}
+    </Stack>
   );
 }
