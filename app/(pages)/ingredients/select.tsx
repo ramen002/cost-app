@@ -16,6 +16,7 @@ export default function SelectIngredientModal() {
   const { selectedIngredients, setSelectedIngredients } = useRecipesStore();
   const [selectedIngredientIds, setSelectedIngredientIds] = useState<Set<string>>(new Set());
   const [searchText, setSearchText] = useState<string>('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // 初期マウント時に既に選択されている材料をselectedIngredientIdsに設定
   useEffect(() => {
@@ -99,13 +100,14 @@ export default function SelectIngredientModal() {
             )}
           </TouchableOpacity>
         ))}
-        <Button
-          title="新しい材料を追加"
-          icon="add"
-          outline
-          className="bg-white border border-primary mt-3 mb-16"
-          onPress={() => router.push('/ingredients/form')}
-        />
+      <Button
+        title="新しい材料を追加"
+        icon="add"
+        outline
+        className="bg-white border border-primary mt-3 mb-16"
+        onPress={() => router.push('/ingredients/form')}
+      />
+
       </ScrollView>
     </View>
   );

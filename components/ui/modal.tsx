@@ -1,53 +1,75 @@
-import { View, Text, Pressable, Modal as RNModal } from "react-native";
+import * as React from "react";
+import {
+  View,
+  ScrollView,
+  Pressable,
+  Modal as RNModal,
+  Text,
+  StyleProp,
+  ViewStyle,
+  ModalProps as RNModalProps,
+} from "react-native";
+import { IconButton } from "@/components/ui/iconButton";
 import { cn } from "@/lib/utils/cn";
+import { colors } from "@/theme";
 
-type ModalType = "center" | "bottom" | "full";
-
-type ModalProps = {
-  visible: boolean;
-  type?: ModalType;
+type ModalProps = RNModalProps & {
   title?: string;
   children: React.ReactNode;
   onClose: () => void;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
-export const Modal: React.FC<ModalProps> = ({ 
+export const Modal: React.FC<ModalProps> = ({
   visible,
-  type = "center",
   title,
   children,
-  onClose
+  onClose,
+  containerStyle,
+  ...props
 }) => {
-
-  // パターンごとのスタイル
-  const containerStyle = {
-    center: "flex-1 bg-black/50 justify-center items-center p-4",
-    bottom: "flex-1 justify-end bg-black/50",
-    full: "flex-1 bg-background p-4",
-  }[type];
-
-  const contentStyle = {
-    center: "bg-white w-full rounded-2xl p-6 shadow",
-    bottom: "bg-white w-full rounded-t-2xl p-6 shadow",
-    full: "flex-1",
-  }[type];
-
   return (
-    <RNModal visible={visible} animationType={type === "center" ? "fade" : "slide"} transparent={type !== "full"} onRequestClose={onClose}>
-      <View className={cn(containerStyle)}>
-        <View className={cn(contentStyle)}>
-          {type !== "full" && title && <Text className="text-lg font-bold mb-4">{title}</Text>}
-          {children}
-          <Pressable
-            onPress={onClose}
-            className={cn(
-              type === "full" ? "mt-4 py-2 px-4 bg-gray-200 rounded-2xl items-center" : "mt-4 py-2 px-4 bg-gray-200 rounded-2xl items-center"
-            )}
+    <RNModal
+      visible={visible}
+      animationType="fade"
+      onRequestClose={onClose}
+      transparent={true}
+      {...props}
+    >
+      <Pressable
+        className="flex-1 bg-black/50 justify-center items-center"
+        onPress={onClose}
+      >
+        <Pressable
+          onPress={(e) => e.stopPropagation()}
+          className={cn(
+            "bg-background rounded-2xl shadow px-4 py-6 w-80 max-w-md"
+          )}
+          style={[{ width: "90%" }, containerStyle]}
+        >
+          {/* ヘッダー */}
+          <View className="flex-row items-center justify-between mb-3">
+            <Text className="text-lg font-bold flex-1 text-center">
+              {title}
+            </Text>
+            <IconButton
+              name="close"
+              size={24}
+              color={colors.textSub}
+              onPress={onClose}
+            />
+          </View>
+
+          {/* コンテンツ */}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 16 }}
+            style={{ maxHeight: 400 }}
           >
-            <Text className="text-center">閉じる</Text>
-          </Pressable>
-        </View>
-      </View>
+            {children}
+          </ScrollView>
+        </Pressable>
+      </Pressable>
     </RNModal>
   );
-}
+};

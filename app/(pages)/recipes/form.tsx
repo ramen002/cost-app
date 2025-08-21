@@ -167,9 +167,9 @@ export default function RecipeForm() {
 
         <View className="mt-6 mb-20">
           <Button
-            className="bg-accentBlue w-full h-12"
             title="保存"
             icon="checkmark"
+            className="bg-accentBlue w-full h-12"
             onPress={handleSave}
           />
         </View>

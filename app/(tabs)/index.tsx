@@ -33,13 +33,6 @@ export default function Home() {
       <Button title="back" />
       <Button title="設定sss" onPress={() => router.push("/settings")} />
 
-      <Modal visible={modalVisible === 'ingredient'} type="center" title="材料追加" onClose={() => setModalVisible(null)}>
-        <Text>ここに材料追加フォーム</Text>
-      </Modal>
-
-      <Modal visible={modalVisible === 'recipe'} type="bottom" title="レシピ追加" onClose={() => setModalVisible(null)}>
-        <Text>ここにレシピ追加フォーム</Text>
-      </Modal>
 {/* full */}
     </View>
   );

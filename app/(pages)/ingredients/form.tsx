@@ -3,14 +3,14 @@ import { useRouter, useNavigation, useLocalSearchParams } from "expo-router";
 import { InputWithLabel } from "@/components/ui/inputWithLabel";
 import { Button } from "@/components/ui/button";
 import { useIngredientsStore } from "@/lib/store/ingredientsStore";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { UnitToggle } from "@/components/ui/unitToggle";
 
 export default function IngredientForm() {
   const router = useRouter();
   const navigation = useNavigation();
   const { id } = useLocalSearchParams();
-  const { addIngredient, updateIngredient, deleteIngredient, getIngredientById } = useIngredientsStore();
+  const { addIngredient, updateIngredient, getIngredientById } = useIngredientsStore();
   const [name, setName] = useState("");
   const [unit, setUnit] = useState<"g" | "ml" | "個" | "袋">("g");
   const [cost, setCost] = useState("");
@@ -73,59 +73,9 @@ export default function IngredientForm() {
     }
   };
 
-  const handleDelete = () => {
-    if (!id) return;
-    
-    Alert.alert(
-      "材料を削除",
-      "この材料を削除してもよろしいですか？",
-      [
-        { text: "キャンセル", style: "cancel" },
-        { 
-          text: "削除", 
-          style: "destructive", 
-          onPress: () => {
-            deleteIngredient(id as string);
-            router.back();
-          }
-        }
-      ]
-    );
-  };
-
-  // ヘッダーの右側に保存ボタンを設定
-  useLayoutEffect(() => {
-    const options: any = {
-      headerRight: () => (
-        <Button
-          className="bg-accentBlue"
-          title="保存"
-          icon="checkmark"
-          onPress={handleSave}
-          pressableClassName="px-3"
-        />
-      ),
-    };
-
-    // 編集モードの場合、ヘッダーの左側に削除ボタンを追加
-    if (id) {
-      options.headerLeft = () => (
-        <Button
-          title="削除"
-          icon="trash"
-          onPress={handleDelete}
-          className="bg-red-500"
-          pressableClassName="px-3"
-        />
-      );
-    }
-
-    navigation.setOptions(options);
-  }, [navigation, handleSave, id]);
-
   return (
-    <View className="flex-1 bg-background p-4">
-      <ScrollView className="flex-1 p-4">
+    <View className="flex-1 bg-background">
+      <ScrollView className="flex-1 p-6">
         <InputWithLabel
           label="材料名 *"
           placeholder="例: じゃがいも"
@@ -152,6 +102,16 @@ export default function IngredientForm() {
           onChangeText={setCost}
           keyboardType="numeric"
         />
+
+        <View className="mt-6 mb-20">
+          <Button
+            title="保存"
+            icon="checkmark"
+            className="bg-accentBlue w-full h-12"
+            onPress={handleSave}
+          />
+        </View>
+
       </ScrollView>
     </View>
   );
