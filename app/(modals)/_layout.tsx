@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
-import { IconButton } from "@/components/ui/IconButton";
+import { IconButton } from "@/components/ui/iconButton";
+import { Button } from "@/components/ui/button";
 import { colors } from "@/theme";
 
 export default function ModalLayout() {
@@ -10,6 +11,10 @@ export default function ModalLayout() {
         headerLeft: () => <IconButton />,
         headerStyle: { backgroundColor: colors.background },
         headerShadowVisible: false,
+        headerTitleStyle: {
+          fontWeight: "bold", 
+          color: colors.accentBlue
+        },
       }}
     >
 

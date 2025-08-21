@@ -2,7 +2,7 @@ import * as React from 'react';
 import { TextInput, View } from 'react-native';
 import { cn } from '@/lib/utils/cn';
 import { colors } from "@/theme";
-import { IconButton } from './IconButton';
+import { IconButton } from './iconButton';
 
 type InputProps = React.ComponentProps<typeof TextInput> & {
   containerClassName?: string;

@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
+import { colors } from "@/theme";
 
 type IconButtonProps = {
   name?: React.ComponentProps<typeof Ionicons>['name'];
@@ -10,7 +11,7 @@ type IconButtonProps = {
 };
 
 export function IconButton({ 
-  color = "black", 
+  color = colors.textSub, 
   size = 24, 
   name = "arrow-back",
   onPress

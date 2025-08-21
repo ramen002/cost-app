@@ -6,11 +6,8 @@ import '@/global.css';
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
+      <Stack screenOptions={{ headerShown: false }}>
+        
         {/* 開き方の設定のみ */}
         <Stack.Screen
           name="(noTabs)"

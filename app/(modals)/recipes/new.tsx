@@ -1,12 +1,13 @@
 import { View, Text, TextInput, ScrollView, Alert } from "react-native";
-import { useRouter } from "expo-router";
-import { Button } from "@/components/ui/button";
+import { useRouter, useNavigation } from "expo-router";
 import { InputWithLabel } from "@/components/ui/inputWithLabel";
 import { useRecipesStore } from "@/lib/store/recipesStore";
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function NewRecipeModal() {
   const router = useRouter();
+  const navigation = useNavigation();
   const { addRecipe } = useRecipesStore();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -38,9 +39,17 @@ export default function NewRecipeModal() {
     }
   };
 
+  // ヘッダーの右側に保存ボタンを設定
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button title="保存" onPress={handleSave} pressableClassName="px-3" />
+      ),
+    });
+  }, [navigation, handleSave]);
+
   return (
-    <View className="flex-1 bg-white">
-      <Button title="保存" onPress={handleSave} />
+    <View className="flex-1 bg-background p-4">
       <ScrollView className="flex-1 p-4">
 
         <InputWithLabel

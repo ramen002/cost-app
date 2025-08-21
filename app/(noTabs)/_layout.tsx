@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { View, Text, ScrollView, Pressable } from 'react-native';
-import { IconButton } from "@/components/ui/IconButton";
+import { IconButton } from "@/components/ui/iconButton";
 import { colors } from "@/theme";
 
 export default function NoTabsLayout() {
@@ -11,6 +11,10 @@ export default function NoTabsLayout() {
         headerLeft: () => <IconButton />,
         headerStyle: { backgroundColor: colors.background },
         headerShadowVisible: false,
+        headerTitleStyle: {
+          fontWeight: "bold", 
+          color: colors.accentBlue
+        },
       }}
     >
       <Stack.Screen

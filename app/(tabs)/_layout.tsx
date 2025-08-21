@@ -15,6 +15,10 @@ export default function TabsLayout() {
           headerShadowVisible: false,                 // 影（ボーダー）を消す
           headerStyle: { backgroundColor: colors.background },
           tabBarStyle: { backgroundColor: colors.background, borderColor: colors.background },
+          headerTitleStyle: {
+            fontWeight: "bold", 
+            color: colors.accentBlue
+          },
         }}
       >
           {/* ホームタブ */}
