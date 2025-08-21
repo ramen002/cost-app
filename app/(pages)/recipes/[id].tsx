@@ -40,6 +40,31 @@ export default function RecipeDetail() {
     }
   }, [id]);
 
+  // 画面がフォーカスされた時にレシピデータを再取得
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (id) {
+        const fetchedRecipe = getRecipeById(id as string);
+        if (fetchedRecipe) {
+          setRecipe(fetchedRecipe);
+          // 原価計算
+          const { totalCost } = calculateCost(fetchedRecipe.ingredients);
+          const costPerServing = totalCost / fetchedRecipe.servings;
+          setTotalCost(totalCost);
+          setCostPerServing(costPerServing);
+          
+          // 材料の詳細情報を取得
+          const details = fetchedRecipe.ingredients.map(usage => 
+            getIngredientById(usage.ingredientId)
+          ).filter((ingredient): ingredient is Ingredient => ingredient !== undefined);
+          setIngredientDetails(details);
+        }
+      }
+    });
+
+    return unsubscribe;
+  }, [navigation, id, getRecipeById, calculateCost, getIngredientById]);
+
   // ヘッダーの右側にボタンを設定
   useLayoutEffect(() => {
     navigation.setOptions({

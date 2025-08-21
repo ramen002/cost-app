@@ -36,19 +36,21 @@ export function IngredientSelector({
   return (
     <View className="mb-4">
       <Label text="材料"/>
-      <Button
-        title="材料を選択"
-        icon="add"
-        outline
-        className="bg-white border border-primary mb-2"
-        onPress={onAddIngredients}
-      />
+      <View className="flex-row justify-start">
+        <Button
+          title="材料を選択"
+          icon="add"
+          outline
+          className="bg-white border border-primary mb-2 self-start"
+          onPress={onAddIngredients}
+        />
+      </View>
       
       {selectedIngredients.map((usage, index) => {
         const ingredient = ingredients.find(ing => ing.id === usage.ingredientId);
         if (!ingredient) return null;
         return (
-          <View key={index} className="border border-primary rounded-2xl p-3 bg-white mb-2">
+          <View key={index} className="rounded-2xl p-3 bg-primary/20 border border-primary mb-2">
             <View className="flex-row items-center">
               <Text className="font-medium w-44">{ingredient.name}</Text>
               <View className="flex-1 flex-row items-center">
@@ -62,7 +64,7 @@ export function IngredientSelector({
                 <Text className="text-textSub ml-1">{ingredient.unit}</Text>
               </View>
                 <TouchableOpacity onPress={() => handleRemoveIngredient(index)}>
-                  <Ionicons name="close-circle" size={24} color={colors.accentOrange} />
+                  <Ionicons name="close-circle" size={24} color={colors.accentBlue} />
                 </TouchableOpacity>
               </View>
           </View>

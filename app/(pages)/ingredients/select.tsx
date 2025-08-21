@@ -7,13 +7,21 @@ import { Button } from "@/components/ui/button";
 import { Ionicons } from "@expo/vector-icons";
 import { Ingredient, IngredientUsage } from "@/lib/types";
 import { colors } from "@/theme";
+import { SearchBar } from "@/components/ui/SearchBar";
 
 export default function SelectIngredientModal() {
   const router = useRouter();
   const navigation = useNavigation();
   const { ingredients } = useIngredientsStore();
-  const { setSelectedIngredients } = useRecipesStore();
+  const { selectedIngredients, setSelectedIngredients } = useRecipesStore();
   const [selectedIngredientIds, setSelectedIngredientIds] = useState<Set<string>>(new Set());
+  const [searchText, setSearchText] = useState<string>('');
+
+  // 初期マウント時に既に選択されている材料をselectedIngredientIdsに設定
+  useEffect(() => {
+    const initialSelectedIds = new Set(selectedIngredients.map(item => item.ingredientId));
+    setSelectedIngredientIds(initialSelectedIds);
+  }, [selectedIngredients]);
 
   // 材料新規作成モーダルから戻ってきたときに材料一覧を更新
   useEffect(() => {
@@ -61,13 +69,25 @@ export default function SelectIngredientModal() {
     });
   }, [navigation, handleSave]);
 
+  // 検索テキストに基づいて材料リストをフィルタリング
+  const filteredIngredients = ingredients.filter(ingredient =>
+    ingredient.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <View className="flex-1 bg-background pt-2">
+      <View className="px-6 py-3">
+        <SearchBar
+          value={searchText}
+          onChangeText={setSearchText}
+          placeholder="材料を検索..."
+        />
+      </View>
       <ScrollView className="flex-1 p-6">
-        {ingredients.map((ingredient) => (
+        {filteredIngredients.map((ingredient) => (
           <TouchableOpacity
             key={ingredient.id}
-            className={`flex-row items-center justify-between border border-primary rounded-2xl p-4 mb-2 ${selectedIngredientIds.has(ingredient.id) ? 'bg-primary/10' : 'bg-white'}`}
+            className={`flex-row items-center justify-between border border-primary rounded-2xl p-4 mb-2 ${selectedIngredientIds.has(ingredient.id) ? 'bg-primary/20' : 'bg-white'}`}
             onPress={() => handleSelect(ingredient.id)}
           >
             <View>
@@ -83,7 +103,7 @@ export default function SelectIngredientModal() {
           title="新しい材料を追加"
           icon="add"
           outline
-          className="bg-white border border-primary mt-4"
+          className="bg-white border border-primary mt-3 mb-16"
           onPress={() => router.push('/ingredients/form')}
         />
       </ScrollView>

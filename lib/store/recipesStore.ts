@@ -12,6 +12,7 @@ type RecipesStore = {
   deleteRecipe: (id: string) => void;
   getRecipeById: (id: string) => Recipe | undefined;
   setSelectedIngredients: (ingredients: IngredientUsage[]) => void;
+  resetSelectedIngredients: () => void;
 };
 
 // AsyncStorage を PersistStorage 用にラップ
@@ -61,6 +62,7 @@ export const useRecipesStore = create<RecipesStore>()(
       },
       getRecipeById: (id) => get().recipes.find((r) => r.id === id),
       setSelectedIngredients: (ingredients) => set({ selectedIngredients: ingredients }),
+      resetSelectedIngredients: () => set({ selectedIngredients: [] }),
     }),
     {
       name: 'recipes-storage',

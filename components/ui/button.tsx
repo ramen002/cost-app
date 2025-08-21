@@ -41,7 +41,7 @@ const Button = React.forwardRef<View, ButtonProps>(({
           buttonClassName
         )}>
         {icon && <Ionicons name={icon} size={18} color={outline ? colors.primary : colors.white } style={{ marginRight: 6 }} />}
-        <Text className={`text-sm font-bold ${!outline && 'text-white'}`}>
+        <Text className={`font-bold ${!outline && 'text-white'}`}>
           {title}
         </Text>
       </View>

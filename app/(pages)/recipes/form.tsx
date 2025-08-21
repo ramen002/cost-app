@@ -12,7 +12,7 @@ export default function RecipeForm() {
   const router = useRouter();
   const navigation = useNavigation();
   const { id } = useLocalSearchParams();
-  const { addRecipe, getRecipeById, updateRecipe, deleteRecipe, selectedIngredients } = useRecipesStore();
+  const { addRecipe, getRecipeById, updateRecipe, deleteRecipe, selectedIngredients, resetSelectedIngredients, setSelectedIngredients } = useRecipesStore();
   const { ingredients } = useIngredientsStore();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -30,21 +30,32 @@ export default function RecipeForm() {
         setServings(recipe.servings.toString());
         setPrice(recipe.price?.toString() || "");
         setLocalSelectedIngredients(recipe.ingredients || []);
+        // 編集モードでレシピデータをロードする際に、selectedIngredientsも設定する
+        setSelectedIngredients(recipe.ingredients || []);
       }
+    } else {
+      // 新規作成モードの場合、selectedIngredientsをリセット
+      resetSelectedIngredients();
     }
-  }, [id]);
+  }, [id, getRecipeById, setSelectedIngredients, resetSelectedIngredients]);
 
-  // 材料選択モーダルから戻ってきたときに選択された材料を反映 (新規作成モード用)
+  // 材料選択モーダルから戻ってきたときに選択された材料を反映
   useEffect(() => {
-    if (!id) {
-      const unsubscribe = navigation.addListener('focus', () => {
-        // selectedIngredientsをローカルのstateにコピー
-        setLocalSelectedIngredients(selectedIngredients);
-      });
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (id) {
+        // 編集モードの場合、selectedIngredientsが空でない場合、localSelectedIngredientsを更新
+        if (selectedIngredients.length > 0) {
+          setLocalSelectedIngredients(selectedIngredients);
+        }
+      } else {
+        // 新規作成モードの場合、selectedIngredientsをリセット
+        resetSelectedIngredients();
+        setLocalSelectedIngredients([]);
+      }
+    });
 
-      return unsubscribe;
-    }
-  }, [navigation, selectedIngredients, id]);
+    return unsubscribe;
+  }, [navigation, selectedIngredients, id, resetSelectedIngredients]);
 
   const handleSave = () => {
     if (!name.trim()) {
@@ -84,6 +95,7 @@ export default function RecipeForm() {
           price: priceNumber,
         });
       }
+      resetSelectedIngredients();
       router.back();
     } catch (error) {
       console.error("レシピ保存エラー:", error);
@@ -110,23 +122,6 @@ export default function RecipeForm() {
       ]
     );
   };
-
-  // ヘッダーの右側に保存ボタンを設定
-  useLayoutEffect(() => {
-    const options: any = {
-      headerRight: () => (
-        <Button
-          className="bg-accentBlue"
-          title="保存"
-          icon="checkmark"
-          onPress={handleSave}
-          pressableClassName="px-3"
-        />
-      ),
-    };
-
-    navigation.setOptions(options);
-  }, [navigation, handleSave, id]);
 
   return (
     <View className="flex-1 bg-background pt-2">
@@ -169,6 +164,15 @@ export default function RecipeForm() {
           value={description}
           onChangeText={setDescription}
         />
+
+        <View className="mt-6 mb-20">
+          <Button
+            className="bg-accentBlue w-full h-12"
+            title="保存"
+            icon="checkmark"
+            onPress={handleSave}
+          />
+        </View>
 
       </ScrollView>
     </View>

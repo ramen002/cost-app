@@ -5,6 +5,7 @@ import { useRouter, useNavigation } from "expo-router";
 import { useState, useLayoutEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { colors } from '@/theme';
+import { Fab } from "@/components/ui/fab";
 
 export default function Recipes() {
   const router = useRouter();
@@ -31,21 +32,6 @@ export default function Recipes() {
     };
     addRecipe(newRecipe);
   };
-
-  // ヘッダーの右側にボタンを設定
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          className="bg-accentOrange"
-          icon="add"
-          title="追加"
-          pressableClassName="pr-6"
-          onPress={() => router.push('/recipes/form')}
-        />
-      ),
-    });
-  }, [navigation]);
 
   return (
     <View className="flex-1 bg-background">
@@ -79,6 +65,8 @@ export default function Recipes() {
           ))}
         </ScrollView>
       </GestureHandlerProvider>
+
+      <Fab title="新規作成" icon="add" onPress={() => router.push('/recipes/form')} />
     </View>
   );
 }
