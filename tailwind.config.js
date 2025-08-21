@@ -12,6 +12,8 @@ module.exports = {
         background: "#E4DCD3",
         primary: "#BFA78D",
         secondary: "#D8C4A3",
+        red: "#D9534F",
+        green: "#5CB85C",
 
         // アクセントカラー
         accentBlue: "#2F4D6C",     // 柔らかいブルーグレー

@@ -19,6 +19,12 @@ const Button = React.forwardRef<View, ButtonProps>(({
   title,
   ...props
 }, ref) => {
+  // デフォルトの背景色クラスを定義
+  const defaultBgClass = outline ? 'bg-white border border-primary' : 'bg-primary';
+  
+  // classNameが指定されていない場合のデフォルトクラスを設定
+  const buttonClassName = className || defaultBgClass;
+  
   return (
     <Pressable
       className={cn(
@@ -31,8 +37,8 @@ const Button = React.forwardRef<View, ButtonProps>(({
       <View
         ref={ref}
         className={cn(
-          `flex-row items-center justify-center rounded-xl h-10 px-4 py-2 ${outline ? 'bg-white border border-primary' : 'bg-primary'}`,
-          className
+          'flex-row items-center justify-center rounded-xl h-10 px-4 py-2',
+          buttonClassName
         )}>
         {icon && <Ionicons name={icon} size={18} color={outline ? colors.primary : colors.white } style={{ marginRight: 6 }} />}
         <Text className={`text-sm font-bold ${!outline && 'text-white'}`}>

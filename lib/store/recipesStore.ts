@@ -1,15 +1,17 @@
 import { create } from 'zustand';
-import { Recipe } from '../types';
+import { Recipe, IngredientUsage } from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persist } from 'zustand/middleware';
 import { generateId } from '../utils';
 
 type RecipesStore = {
   recipes: Recipe[];
+  selectedIngredients: IngredientUsage[];
   addRecipe: (data: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>) => void;
   updateRecipe: (id: string, data: Partial<Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>>) => void;
   deleteRecipe: (id: string) => void;
   getRecipeById: (id: string) => Recipe | undefined;
+  setSelectedIngredients: (ingredients: IngredientUsage[]) => void;
 };
 
 // AsyncStorage を PersistStorage 用にラップ
@@ -36,6 +38,7 @@ export const useRecipesStore = create<RecipesStore>()(
   persist(
     (set, get) => ({
       recipes: [],
+      selectedIngredients: [],
       addRecipe: (data) => {
         const now = Date.now();
         const newRecipe: Recipe = {
@@ -57,6 +60,7 @@ export const useRecipesStore = create<RecipesStore>()(
         set({ recipes: get().recipes.filter((r) => r.id !== id) });
       },
       getRecipeById: (id) => get().recipes.find((r) => r.id === id),
+      setSelectedIngredients: (ingredients) => set({ selectedIngredients: ingredients }),
     }),
     {
       name: 'recipes-storage',

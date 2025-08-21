@@ -37,7 +37,7 @@ export default function Recipes() {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          className="bg-accentOrangeBright"
+          className="bg-accentOrange"
           icon="add"
           title="追加"
           pressableClassName="pr-6"
@@ -56,6 +56,7 @@ export default function Recipes() {
         <ScrollView className="p-6">
           {recipes.map((recipe) => (
             <SwipeableListItem
+              className="bg-white rounded-lg"
               key={recipe.id}
               onDuplicate={() => handleDuplicate(recipe)}
               onDelete={() => handleDelete(recipe.id, recipe.name)}

@@ -24,6 +24,11 @@ export default function ModalLayout() {
       />
 
       <Stack.Screen
+        name="ingredients/select"
+        options={{ title: "食材選択" }}
+      />
+
+      <Stack.Screen
         name="ingredients/edit/[id]"
         options={{ title: "食材編集" }}
       />

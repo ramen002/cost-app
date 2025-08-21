@@ -23,7 +23,7 @@ export const SwipeableListItem: React.FC<SwipeableListItemProps> = ({
       <View className="flex-row">
         {onDuplicate && (
           <View 
-            className="bg-accentOrange justify-center items-center w-20"
+            className="bg-accentBlue justify-center items-center w-20"
             onTouchEnd={(e) => {
               e.preventDefault();
               onDuplicate();
@@ -34,7 +34,7 @@ export const SwipeableListItem: React.FC<SwipeableListItemProps> = ({
         )}
         {onDelete && (
           <View 
-            className="bg-red-500 justify-center items-center w-20 rounded-tr-lg rounded-br-lg"
+            className="bg-red justify-center items-center w-20 rounded-tr-lg rounded-br-lg"
             onTouchEnd={(e) => {
               e.preventDefault();
               onDelete();
