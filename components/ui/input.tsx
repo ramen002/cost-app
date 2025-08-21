@@ -49,7 +49,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(
           <IconButton
             name="close-circle"
             size={20}
-            color={colors.placeholder}
+            color={colors.accentOrange}
             onPress={clearText}
           />
         )}

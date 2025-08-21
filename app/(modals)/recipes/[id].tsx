@@ -49,7 +49,7 @@ export default function RecipeDetail() {
           icon="create"
           title="編集"
           pressableClassName="pr-2"
-          onPress={() => router.push(`/recipes/edit/${id}`)}
+          onPress={() => router.push(`/recipes/form?id=${id}`)}
         />
       ),
     });

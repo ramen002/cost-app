@@ -2,9 +2,9 @@
 export type Ingredient = {
   id: string;
   name: string;
-  unit: 'g' | 'ml' | '個' | string;  // 必須プリセット＋拡張用string
   cost: number;       // 単価（円/単位）
-  stock?: number;      // 在庫数量
+  unit: "g" | "ml" | "個" | "袋"  // 必須プリセット
+  quantity: number; // 1個あたりの量（g/ml）
   categoryId?: string;  // Category.id と紐付け
   createdAt: number;
   updatedAt: number;
@@ -25,6 +25,7 @@ export type Recipe = {
   ingredients: IngredientUsage[];
   servings: number;   // 標準量（人数や個数）
   price?: number;    // 販売価格
+  
   categoryId?: string;  // Category.id と紐付け
   createdAt: number;
   updatedAt: number;

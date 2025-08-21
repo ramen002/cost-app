@@ -13,7 +13,7 @@ export default function Ingredients() {
         icon="add"
         outline
         className="bg-white border border-primary mt-4"
-        onPress={() => router.push('/(modals)/ingredients/new')}
+        onPress={() => router.push('/(modals)/ingredients/form')}
       />
     </View>
   );

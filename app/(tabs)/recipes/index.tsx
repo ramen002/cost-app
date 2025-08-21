@@ -41,7 +41,7 @@ export default function Recipes() {
           icon="add"
           title="追加"
           pressableClassName="pr-6"
-          onPress={() => router.push('/(modals)/recipes/new')}
+          onPress={() => router.push('/(modals)/recipes/form')}
         />
       ),
     });

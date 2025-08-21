@@ -19,7 +19,7 @@ export default function ModalLayout() {
     >
 
       <Stack.Screen
-        name="ingredients/new"
+        name="ingredients/form"
         options={{ title: "食材登録" }}
       />
 
@@ -34,13 +34,13 @@ export default function ModalLayout() {
       />
 
       <Stack.Screen
-        name="recipes/new"
-        options={{ title: "レシピ作成" }}
-      />
-
-      <Stack.Screen
-        name="recipes/edit/[id]"
-        options={{ title: "レシピ編集" }}
+        name="recipes/form"
+        options={({ route }: any) => {
+          const { id } = route.params || {};
+          return {
+            title: id ? "レシピ編集" : "レシピ作成",
+          };
+        }}
       />
 
       <Stack.Screen

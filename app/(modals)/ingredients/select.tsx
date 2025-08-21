@@ -6,6 +6,7 @@ import { useState, useLayoutEffect, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Ionicons } from "@expo/vector-icons";
 import { Ingredient, IngredientUsage } from "@/lib/types";
+import { colors } from "@/theme";
 
 export default function SelectIngredientModal() {
   const router = useRouter();
@@ -61,12 +62,12 @@ export default function SelectIngredientModal() {
   }, [navigation, handleSave]);
 
   return (
-    <View className="flex-1 bg-background p-4">
-      <ScrollView className="flex-1">
+    <View className="flex-1 bg-background pt-2">
+      <ScrollView className="flex-1 p-6">
         {ingredients.map((ingredient) => (
           <TouchableOpacity
             key={ingredient.id}
-            className={`flex-row items-center justify-between border border-gray-300 rounded-lg p-3 mb-2 ${selectedIngredientIds.has(ingredient.id) ? 'bg-primary/10' : 'bg-white'}`}
+            className={`flex-row items-center justify-between border border-primary rounded-xl p-4 mb-2 ${selectedIngredientIds.has(ingredient.id) ? 'bg-primary/10' : 'bg-white'}`}
             onPress={() => handleSelect(ingredient.id)}
           >
             <View>
@@ -74,7 +75,7 @@ export default function SelectIngredientModal() {
               <Text>{ingredient.cost}円/{ingredient.unit}</Text>
             </View>
             {selectedIngredientIds.has(ingredient.id) && (
-              <Ionicons name="checkmark-circle" size={24} color="#2F4D6C" />
+              <Ionicons name="checkmark-circle" size={24} color={colors.accentBlue} />
             )}
           </TouchableOpacity>
         ))}
@@ -83,7 +84,7 @@ export default function SelectIngredientModal() {
           icon="add"
           outline
           className="bg-white border border-primary mt-4"
-          onPress={() => router.push('/(modals)/ingredients/new')}
+          onPress={() => router.push('/(modals)/ingredients/form')}
         />
       </ScrollView>
     </View>
