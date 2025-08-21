@@ -4,10 +4,11 @@ import { cn } from '@/lib/utils/cn';
 
 type ButtonProps = React.ComponentProps<typeof Pressable> & {
   title: string;
+  outline?: boolean;
   pressableClassName?: string;
 };
 
-const Button = React.forwardRef<View, ButtonProps>(({ className, pressableClassName, title, ...props }, ref) => {
+const Button = React.forwardRef<View, ButtonProps>(({ className, outline = false, pressableClassName, title, ...props }, ref) => {
   return (
     <Pressable
       className={cn(
@@ -20,10 +21,10 @@ const Button = React.forwardRef<View, ButtonProps>(({ className, pressableClassN
       <View
         ref={ref}
         className={cn(
-          'flex items-center justify-center rounded-xl bg-primary h-10 px-4 py-2',
+          `flex items-center justify-center rounded-xl h-10 px-4 py-2 ${outline ? 'bg-white border border-primary' : 'bg-primary'}`,
           className
         )}>
-        <Text className="text-sm font-medium text-primary-foreground">
+        <Text className={`text-sm font-bold ${!outline && 'text-white'}`}>
           {title}
         </Text>
       </View>

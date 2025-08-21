@@ -7,7 +7,7 @@ export default function ModalLayout() {
     <Stack
       screenOptions={{
         headerShown: true,
-        headerRight: () => <IconButton name="close" />,
+        headerLeft: () => <IconButton />,
         headerStyle: { backgroundColor: colors.background },
         headerShadowVisible: false,
       }}

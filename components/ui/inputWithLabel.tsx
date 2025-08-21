@@ -19,11 +19,10 @@ export const InputWithLabel = React.forwardRef<React.ComponentRef<typeof Input>,
         <Input
           ref={ref}
           className={className}
-          showClearButton
+          showClearButton={showClearButton}
           {...props}
         />
       </View>
     );
   }
 );
-

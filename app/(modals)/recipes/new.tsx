@@ -40,6 +40,7 @@ export default function NewRecipeModal() {
 
   return (
     <View className="flex-1 bg-white">
+      <Button title="保存" onPress={handleSave} />
       <ScrollView className="flex-1 p-4">
 
         <InputWithLabel
@@ -64,43 +65,7 @@ export default function NewRecipeModal() {
           onChangeText={setServings}
           keyboardType="numeric"
         />
-        
-
-        <View className="mb-4">
-          <Text className="text-lg font-semibold mb-2">メモ</Text>
-          <TextInput
-            className="border border-gray-300 rounded-lg p-3 bg-white"
-            value={description}
-            onChangeText={setDescription}
-            placeholder="レシピのポイントやメモ"
-            multiline
-            numberOfLines={3}
-          />
-        </View>
-
-        <View className="mb-6">
-          <Text className="text-lg font-semibold mb-2">標準量</Text>
-          <TextInput
-            className="border border-gray-300 rounded-lg p-3 bg-white"
-
-            placeholder="例: 4"
-            keyboardType="numeric"
-          />
-          
-        </View>
       </ScrollView>
-
-      <View className="flex-row justify-between p-4 bg-white">
-        <Button 
-          title="キャンセル" 
-          onPress={() => router.back()} 
-          className="bg-transparent border border-primary"
-        />
-        <Button 
-          title="保存" 
-          onPress={handleSave} 
-        />
-      </View>
     </View>
   );
 }
