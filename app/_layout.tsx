@@ -23,7 +23,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="(modals)"
           options={{
-            presentation: "modal",
+            presentation: "fullScreenModal",
           }}
         />
       </Stack>

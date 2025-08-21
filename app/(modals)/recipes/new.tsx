@@ -1,6 +1,7 @@
 import { View, Text, TextInput, ScrollView, Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { Button } from "@/components/ui/button";
+import { InputWithLabel } from "@/components/ui/inputWithLabel";
 import { useRecipesStore } from "@/lib/store/recipesStore";
 import { useState } from "react";
 
@@ -38,19 +39,32 @@ export default function NewRecipeModal() {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-white">
       <ScrollView className="flex-1 p-4">
-        <Text className="text-2xl font-bold mb-6">レシピを追加</Text>
+
+        <InputWithLabel
+          label="レシピ名 *"
+          placeholder="例: カレーライス"
+          value={name}
+          onChangeText={setName}
+          showClearButton
+        />
+
+        <InputWithLabel
+          label="メモ"
+          placeholder="例: レシピのポイントやメモ"
+          value={description}
+          onChangeText={setDescription}
+        />
+
+        <InputWithLabel
+          label="標準量"
+          placeholder="例: 4"
+          value={servings}
+          onChangeText={setServings}
+          keyboardType="numeric"
+        />
         
-        <View className="mb-4">
-          <Text className="text-lg font-semibold mb-2">レシピ名 *</Text>
-          <TextInput
-            className="border border-gray-300 rounded-lg p-3 bg-white"
-            value={name}
-            onChangeText={setName}
-            placeholder="例: カレーライス"
-          />
-        </View>
 
         <View className="mb-4">
           <Text className="text-lg font-semibold mb-2">メモ</Text>
@@ -68,12 +82,11 @@ export default function NewRecipeModal() {
           <Text className="text-lg font-semibold mb-2">標準量</Text>
           <TextInput
             className="border border-gray-300 rounded-lg p-3 bg-white"
-            value={servings}
-            onChangeText={setServings}
+
             placeholder="例: 4"
             keyboardType="numeric"
           />
-          <Text className="text-gray-500 mt-1">何人分または何個分かを入力</Text>
+          
         </View>
       </ScrollView>
 

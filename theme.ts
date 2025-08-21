@@ -10,6 +10,7 @@ export const colors = {
   accentOrangeBright: "#F29D35", // 強調用オレンジ
 
   // テキスト & ボーダー
-  textSub: "#A3A3A3",        // サブテキスト
+  textSub: "#666666",        // サブテキスト
   border: "#F5F5F5",         // 境界線・区切り線
+  placeholder: "#A3A3A3",
 };

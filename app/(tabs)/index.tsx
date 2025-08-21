@@ -30,7 +30,7 @@ export default function Home() {
 
       <Button title="材料追加" onPress={() => setModalVisible('ingredient')} />
       <Button title="レシピ追加" onPress={() => setModalVisible('recipe')} />
-      <Button title="back" onPress={() => router.back()} />
+      <Button title="back" />
       <Button title="設定sss" onPress={() => router.push("/settings")} />
 
       <Modal visible={modalVisible === 'ingredient'} type="center" title="材料追加" onClose={() => setModalVisible(null)}>

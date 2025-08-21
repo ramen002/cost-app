@@ -9,7 +9,7 @@ export default function NewIngredientModal() {
     <View className="flex-1 items-center justify-center bg-white">
       <Text className="text-lg font-bold">食材を追加</Text>
       {/* 入力フォームをここに */}
-      <Button title="閉じる" onPress={() => router.back()} />
+      <Button title="閉じる" />
     </View>
   );
 }
