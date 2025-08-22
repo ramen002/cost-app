@@ -9,6 +9,7 @@ type IngredientsStore = {
   addIngredient: (data: Omit<Ingredient, 'id' | 'createdAt' | 'updatedAt'>) => void;
   updateIngredient: (id: string, data: Partial<Omit<Ingredient, 'id' | 'createdAt' | 'updatedAt'>>) => void;
   deleteIngredient: (id: string) => void;
+  duplicateIngredient: (id: string) => void;
   getIngredientById: (id: string) => Ingredient | undefined;
 };
 
@@ -55,6 +56,20 @@ export const useIngredientsStore = create<IngredientsStore>()(
       },
       deleteIngredient: (id) => {
         set({ ingredients: get().ingredients.filter((ing) => ing.id !== id) });
+      },
+      duplicateIngredient: (id) => {
+        const ingredient = get().ingredients.find((ing) => ing.id === id);
+        if (ingredient) {
+          const now = Date.now();
+          const newIngredient: Ingredient = {
+            ...ingredient,
+            id: generateId(),
+            name: `${ingredient.name} (コピー)`,
+            createdAt: now,
+            updatedAt: now,
+          };
+          set({ ingredients: [...get().ingredients, newIngredient] });
+        }
       },
       getIngredientById: (id) => get().ingredients.find((ing) => ing.id === id),
     }),

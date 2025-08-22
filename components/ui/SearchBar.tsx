@@ -1,4 +1,4 @@
-import { View, TextInput } from "react-native";
+import { View, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "@/theme";
 
@@ -19,6 +19,11 @@ export const SearchBar = ({ value, onChangeText, placeholder = "検索...", clas
         value={value}
         onChangeText={onChangeText}
       />
+      {value.length > 0 && (
+        <TouchableOpacity onPress={() => onChangeText('')} style={{ marginRight: 16 }}>
+          <Ionicons name="close-circle" size={20} color={colors.accentOrange} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

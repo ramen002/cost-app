@@ -26,6 +26,7 @@ export default function TabsLayout() {
             name="index"
             options={{
               title: "ホーム",
+              headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="home" color={color} size={size} />
               ),
@@ -61,6 +62,17 @@ export default function TabsLayout() {
               title: "計算",
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="calculator" color={color} size={size} />
+              ),
+            }}
+          />
+
+          {/* 設定タブ */}
+          <Tabs.Screen
+            name="settings/index"
+            options={{
+              title: "設定",
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="settings" color={color} size={size} />
               ),
             }}
           />

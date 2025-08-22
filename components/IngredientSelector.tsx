@@ -41,7 +41,7 @@ export function IngredientSelector({
           title="材料を選択"
           icon="add"
           outline
-          className="bg-white border border-primary mb-2 self-start"
+          pressableClassName="mb-2"
           onPress={onAddIngredients}
         />
       </View>

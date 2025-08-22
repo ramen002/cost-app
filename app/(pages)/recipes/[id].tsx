@@ -70,7 +70,7 @@ export default function RecipeDetail() {
       headerRight: () => (
         <Button
           outline
-          icon="create"
+          icon="create-outline"
           title="編集"
           pressableClassName="pr-2"
           onPress={() => router.push(`/recipes/form?id=${id}`)}
@@ -93,8 +93,8 @@ export default function RecipeDetail() {
 
         <View className="bg-accentBlue rounded-2xl py-6 items-center">
           <Text className="text-white mb-1">{recipe.name}</Text>
-          <Text className="text-white text-xl font-bold">￥{recipe.price}</Text>
-          <Text className="text-white">1人分: ￥36 | 原価率: 30%</Text>
+          <Text className="text-white text-xl font-bold">¥{recipe.price}</Text>
+          <Text className="text-white">1人分: ¥36 | 原価率: 30%</Text>
         </View>
 
         <Button

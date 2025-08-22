@@ -78,7 +78,6 @@ export default function IngredientForm() {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          className="bg-accentBlue"
           icon="checkmark"
           title="保存"
           pressableClassName="pr-2"
@@ -101,7 +100,7 @@ export default function IngredientForm() {
         <View className="flex-row items-center justify-between">
           <InputWithLabel
             containerClassName="w-36"
-            label="容量 *"
+            label="内容量 *"
             placeholder="例: 10"
             value={quantity}
             onChangeText={setQuantity}

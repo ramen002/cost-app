@@ -60,7 +60,6 @@ export default function SelectIngredientModal() {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          className="bg-accentBlue"
           title="選択"
           icon="checkmark"
           onPress={handleSave}
@@ -83,6 +82,14 @@ export default function SelectIngredientModal() {
           onChangeText={setSearchText}
           placeholder="材料を検索..."
         />
+
+        <Button
+          outline
+          title="新しい材料を追加"
+          icon="add"
+          pressableClassName="mt-3"
+          onPress={() => router.push('/ingredients/form')}
+        />
       </View>
       <ScrollView className="flex-1 p-6">
         {filteredIngredients.map((ingredient) => (
@@ -100,13 +107,6 @@ export default function SelectIngredientModal() {
             )}
           </TouchableOpacity>
         ))}
-        <Button
-          title="新しい材料を追加"
-          icon="add"
-          outline
-          className="bg-white border border-primary mt-3 mb-16"
-          onPress={() => router.push('/ingredients/form')}
-        />
 
       </ScrollView>
     </View>

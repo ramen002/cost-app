@@ -8,6 +8,7 @@ interface SwipeableListItemProps extends ViewProps {
   onDuplicate?: () => void;
   onDelete?: () => void;
   rightThreshold?: number;
+  mb?: string;
 }
 
 export const SwipeableListItem: React.FC<SwipeableListItemProps> = ({ 
@@ -15,7 +16,8 @@ export const SwipeableListItem: React.FC<SwipeableListItemProps> = ({
   onDuplicate,
   onDelete,
   rightThreshold = 40,
-  className,
+  className = '',
+  mb = '2',
   ...props
 }) => {
   const renderRightActions = (progress: any, dragX: any) => {
@@ -48,28 +50,27 @@ export const SwipeableListItem: React.FC<SwipeableListItemProps> = ({
   };
 
   return (
-    <View className="bg-white mb-5 shadow-sm rounded-2xl">
-    <Swipeable
-      renderRightActions={renderRightActions}
-      rightThreshold={rightThreshold}
-    >
-      <View className={className} {...props}>
-        <View className=''>
-        {children}
+    <View className={`bg-white shadow-sm rounded-2xl mb-${mb}`}>
+      <Swipeable
+        renderRightActions={renderRightActions}
+        rightThreshold={rightThreshold}
+      >
+        <View className={className} {...props}>
+          {children}
         </View>
-      </View>
-    </Swipeable>
+      </Swipeable>
     </View>
   );
 };
 
 interface GestureHandlerProviderProps extends ViewProps {
   children: React.ReactNode;
+  mb?: string;
 }
 
 export const GestureHandlerProvider: React.FC<GestureHandlerProviderProps> = ({ 
   children,
-  className,
+  className = '',
   ...props
 }) => {
   return (

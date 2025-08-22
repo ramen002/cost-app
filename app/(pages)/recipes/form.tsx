@@ -103,32 +103,11 @@ export default function RecipeForm() {
     }
   };
 
-  const handleDelete = () => {
-    if (!id) return;
-    
-    Alert.alert(
-      "レシピを削除",
-      "このレシピを削除してもよろしいですか？",
-      [
-        { text: "キャンセル", style: "cancel" },
-        { 
-          text: "削除", 
-          style: "destructive", 
-          onPress: () => {
-            deleteRecipe(id as string);
-            router.back();
-          }
-        }
-      ]
-    );
-  };
-
   // ヘッダーの右側にボタンを設定
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          className="bg-accentBlue"
           icon="checkmark"
           title="保存"
           pressableClassName="pr-2"

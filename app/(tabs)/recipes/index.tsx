@@ -6,22 +6,13 @@ import { useState, useLayoutEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { colors } from '@/theme';
 import { Fab } from "@/components/ui/fab";
+import { SearchBar } from "@/components/ui/SearchBar";
 
 export default function Recipes() {
   const router = useRouter();
   const navigation = useNavigation();
   const { recipes, deleteRecipe, addRecipe } = useRecipesStore();
-
-  const handleDelete = (id: string, name: string) => {
-    Alert.alert(
-      "レシピを削除",
-      `「${name}」を削除してもよろしいですか？`,
-      [
-        { text: "キャンセル", style: "cancel" },
-        { text: "削除", style: "destructive", onPress: () => deleteRecipe(id) }
-      ]
-    );
-  };
+  const [searchText, setSearchText] = useState<string>('');
 
   const handleDuplicate = (recipe: any) => {
     const newRecipe = {
@@ -33,19 +24,35 @@ export default function Recipes() {
     addRecipe(newRecipe);
   };
 
+  // 検索テキストに基づいてレシピリストをフィルタリング
+  const filteredRecipes = recipes.filter(recipe =>
+    recipe.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <View className="flex-1 bg-background">
       <GestureHandlerProvider>
-
-        {/* todo: ここに検索とソートおきたい */}
+        <View className="px-6 py-3">
+          <SearchBar
+            value={searchText}
+            onChangeText={setSearchText}
+            placeholder="レシピを検索..."
+          />
+          <Button
+            pressableClassName="mt-3"
+            icon="add"
+            title="レシピを作成する"
+            onPress={() => router.push('/recipes/form')}
+          />
+          </View>
 
         <ScrollView className="p-6">
-          {recipes.map((recipe) => (
+          {filteredRecipes.map((recipe) => (
             <SwipeableListItem
               className="bg-white rounded-2xl"
               key={recipe.id}
               onDuplicate={() => handleDuplicate(recipe)}
-              onDelete={() => handleDelete(recipe.id, recipe.name)}
+              onDelete={() => deleteRecipe(recipe.id)}
             >
               <TouchableOpacity 
                 className="rounded-2xl p-4 flex-row justify-between items-center"
@@ -59,14 +66,14 @@ export default function Recipes() {
                 </View>
 
                 {/* 右側 */}
-                <Text className="text-2xl font-bold text-primary">{recipe.price ? `￥${recipe.price}` : ''}</Text>
+                <Text className="text-2xl font-bold text-primary">{recipe.price ? `¥${recipe.price}` : ''}</Text>
               </TouchableOpacity>
             </SwipeableListItem>
           ))}
         </ScrollView>
       </GestureHandlerProvider>
 
-      <Fab title="新規作成" icon="add" onPress={() => router.push('/recipes/form')} />
+      {/* <Fab title="新規作成" icon="add" onPress={() => router.push('/recipes/form')} /> */}
     </View>
   );
 }

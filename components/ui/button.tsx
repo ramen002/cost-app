@@ -20,7 +20,7 @@ const Button = React.forwardRef<View, ButtonProps>(({
   ...props
 }, ref) => {
   // デフォルトの背景色クラスを定義
-  const defaultBgClass = outline ? 'bg-white border border-primary' : 'bg-primary';
+  const defaultBgClass = outline ? 'bg-white border border-primary' : 'bg-accentBlue';
   
   // classNameが指定されていない場合のデフォルトクラスを設定
   const buttonClassName = className || defaultBgClass;
