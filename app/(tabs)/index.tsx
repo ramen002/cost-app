@@ -27,13 +27,6 @@ export default function Home() {
           </View>
         ))}
       </ScrollView>
-
-      <Button title="材料追加" onPress={() => setModalVisible('ingredient')} />
-      <Button title="レシピ追加" onPress={() => setModalVisible('recipe')} />
-      <Button title="back" />
-      <Button title="設定sss" onPress={() => router.push("/settings")} />
-
-{/* full */}
     </View>
   );
 }

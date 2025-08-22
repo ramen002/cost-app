@@ -4,6 +4,13 @@ import { IconButton } from "@/components/ui/iconButton";
 import { colors } from "@/theme";
 
 export default function PagesLayout() {
+
+  // 編集かでタイトル変更
+  const isEdit = (route: any) => {
+    const { id } = route.params || {};
+    return id ? true : false;
+  };
+
   return (
     <Stack
       screenOptions={{
@@ -21,9 +28,9 @@ export default function PagesLayout() {
       <Stack.Screen
         name="ingredients/form"
         options={({ route }: any) => {
-          const { id } = route.params || {};
           return {
-            title: id ? "食材編集" : "食材登録",
+            presentation: "modal",
+            title: isEdit(route) ? "食材編集" : "新しい食材登録",
           };
         }}
       />
@@ -31,9 +38,8 @@ export default function PagesLayout() {
       <Stack.Screen
         name="recipes/form"
         options={({ route }: any) => {
-          const { id } = route.params || {};
           return {
-            title: id ? "レシピ編集" : "レシピ作成",
+            title: isEdit(route) ? "レシピ編集" : "レシピ作成",
           };
         }}
       />

@@ -100,13 +100,13 @@ export default function SelectIngredientModal() {
             )}
           </TouchableOpacity>
         ))}
-      <Button
-        title="新しい材料を追加"
-        icon="add"
-        outline
-        className="bg-white border border-primary mt-3 mb-16"
-        onPress={() => router.push('/ingredients/form')}
-      />
+        <Button
+          title="新しい材料を追加"
+          icon="add"
+          outline
+          className="bg-white border border-primary mt-3 mb-16"
+          onPress={() => router.push('/ingredients/form')}
+        />
 
       </ScrollView>
     </View>

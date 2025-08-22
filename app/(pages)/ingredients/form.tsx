@@ -3,7 +3,7 @@ import { useRouter, useNavigation, useLocalSearchParams } from "expo-router";
 import { InputWithLabel } from "@/components/ui/inputWithLabel";
 import { Button } from "@/components/ui/button";
 import { useIngredientsStore } from "@/lib/store/ingredientsStore";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { UnitToggle } from "@/components/ui/unitToggle";
 
 export default function IngredientForm() {
@@ -73,6 +73,21 @@ export default function IngredientForm() {
     }
   };
 
+  // ヘッダーの右側にボタンを設定
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          className="bg-accentBlue"
+          icon="checkmark"
+          title="保存"
+          pressableClassName="pr-2"
+          onPress={handleSave}
+        />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <View className="flex-1 bg-background">
       <ScrollView className="flex-1 p-6">
@@ -102,15 +117,6 @@ export default function IngredientForm() {
           onChangeText={setCost}
           keyboardType="numeric"
         />
-
-        <View className="mt-6 mb-20">
-          <Button
-            title="保存"
-            icon="checkmark"
-            className="bg-accentBlue w-full h-12"
-            onPress={handleSave}
-          />
-        </View>
 
       </ScrollView>
     </View>

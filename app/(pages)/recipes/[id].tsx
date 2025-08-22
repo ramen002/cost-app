@@ -1,7 +1,6 @@
 import { View, Text, ScrollView } from "react-native";
 import { useRouter, useNavigation, useLocalSearchParams } from "expo-router";
 import { Button } from "@/components/ui/button";
-import { Fab } from "@/components/ui/fab";
 import { useRecipesStore } from "@/lib/store/recipesStore";
 import { useCalculatorStore } from "@/lib/store/calculatorStore";
 import { useIngredientsStore } from "@/lib/store/ingredientsStore";
@@ -70,7 +69,7 @@ export default function RecipeDetail() {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          className="bg-accentBlue"
+          outline
           icon="create"
           title="編集"
           pressableClassName="pr-2"
@@ -91,70 +90,73 @@ export default function RecipeDetail() {
   return (
     <View className="flex-1 bg-background">
       <ScrollView className="px-6 pt-4">
-        <View className="bg-secondary">
-          <Text className="font-bold p-3">{recipe.name}</Text>
+
+        <View className="bg-accentBlue rounded-2xl py-6 items-center">
+          <Text className="text-white mb-1">{recipe.name}</Text>
+          <Text className="text-white text-xl font-bold">￥{recipe.price}</Text>
+          <Text className="text-white">1人分: ￥36 | 原価率: 30%</Text>
         </View>
+
+        <Button
+          outline
+          icon="calculator"
+          title="このレシピで再計算する"
+          pressableClassName="pr-2 mt-4"
+          onPress={() => router.push(`/calculator?recipeId=${id}`)}
+        />
         
-        
-        {recipe.description ? (
-          <View className="mb-4">
-            <Text className="text-lg font-semibold mb-2">メモ</Text>
-            <Text className="border border-gray-300 p-3 bg-white">
-              {recipe.description}
-            </Text>
+        <View className="bg-white mt-4 rounded-2xl py-6 items-center">
+          <Text className="mb-3 font-bold">材料別原価割合</Text>
+          {/* todo: 円グラフ表示 */}
+        </View>
+
+        <View className="bg-white mt-4 rounded-2xl py-6 items-center">
+          <Text className="mb-3 font-bold">材料別コスト比較</Text>
+          {/* todo: 棒グラフ表示 */}
+        </View>
+
+        {/* 登録内容 */}
+        <View className="mt-6">
+          <Text className="text-primary font-bold mb-1">登録内容</Text>
+          <View className="flex-row border-l-2 border-primary mb-2">
+            <Text className="w-20 font-bold ml-2">レシピ名</Text>
+            <Text>{recipe.name}</Text>
           </View>
-        ) : null}
-
-        <View className="mb-4">
-          <Text className="text-lg font-semibold mb-2">標準量</Text>
-          <Text className="border border-gray-300 p-3 bg-white">
-            {recipe.servings} 人分 / 個
-          </Text>
-        </View>
-
-        {recipe.price !== undefined ? (
-          <View className="mb-4">
-            <Text className="text-lg font-semibold mb-2">販売価格</Text>
-            <Text className="border border-gray-300 p-3 bg-white">
-              ¥{recipe.price}
-            </Text>
+          <View className="flex-row border-l-2 border-primary mb-2">
+            <Text className="w-20 font-bold ml-2">材料</Text>
+            <View className="flex-col">
+            {recipe.ingredients.map((usage, index) => {
+              const ingredient = ingredientDetails[index];
+              if (!ingredient) return null;
+              return (
+                <View key={index} className="flex-row rounded-md bg-primary/20 mb-0.5 p-0.5 pl-2">
+                  <Text className="w-40">
+                    <Text className="text-primary font-bold">{index+1}.</Text>
+                    {ingredient.name}
+                  </Text>
+                  <Text className="w-16">{usage.quantity}{ingredient.unit}</Text>
+                  <Text className="mr-2">¥{ingredient.cost}</Text>
+                </View>
+              );
+            })}
+            </View>
           </View>
-        ) : null}
-
-        <View className="mb-4">
-          <Text className="text-lg font-semibold mb-2">原価</Text>
-          <Text className="border border-gray-300 p-3 bg-white">
-            ¥{totalCost.toFixed(2)}
-          </Text>
+          <View className="flex-row border-l-2 border-primary mb-2">
+            <Text className="w-20 font-bold ml-2">提供数</Text>
+            <Text>{recipe.servings} 人分 / 個</Text>
+          </View>
+          <View className="flex-row border-l-2 border-primary mb-2">
+            <Text className="w-20 font-bold ml-2">販売価格</Text>
+            <Text>¥{recipe.price}</Text>
+          </View>
+          <View className="flex-row border-l-2 border-primary">
+            <Text className="w-20 font-bold ml-2">メモ</Text>
+            <Text>{recipe.description ? recipe.description : '-'}</Text>
+          </View>
         </View>
-
-        <View className="mb-4">
-          <Text className="text-lg font-semibold mb-2">1人分 / 1個あたりの原価</Text>
-          <Text className="border border-gray-300 p-3 bg-white">
-            ¥{costPerServing.toFixed(2)}
-          </Text>
-        </View>
-
-        <View className="mb-6">
-          <Text className="text-lg font-semibold mb-2">材料一覧</Text>
-          {recipe.ingredients.map((usage, index) => {
-            const ingredient = ingredientDetails[index];
-            if (!ingredient) return null;
-            return (
-              <View key={index} className="border border-gray-300 p-3 bg-white mb-2">
-                <Text className="font-medium">{ingredient.name}</Text>
-                <Text>{usage.quantity} {ingredient.unit}</Text>
-              </View>
-            );
-          })}
-        </View>
+      
       </ScrollView>
-
-      <Fab 
-        title="計算機"
-        icon="calculator"
-        onPress={() => router.push(`/calculator?recipeId=${id}`)}
-      />
     </View>
   );
 }
+

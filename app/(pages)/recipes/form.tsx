@@ -123,6 +123,21 @@ export default function RecipeForm() {
     );
   };
 
+  // ヘッダーの右側にボタンを設定
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          className="bg-accentBlue"
+          icon="checkmark"
+          title="保存"
+          pressableClassName="pr-2"
+          onPress={handleSave}
+        />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <View className="flex-1 bg-background pt-2">
       <ScrollView className="p-6">
@@ -164,15 +179,6 @@ export default function RecipeForm() {
           value={description}
           onChangeText={setDescription}
         />
-
-        <View className="mt-6 mb-20">
-          <Button
-            title="保存"
-            icon="checkmark"
-            className="bg-accentBlue w-full h-12"
-            onPress={handleSave}
-          />
-        </View>
 
       </ScrollView>
     </View>
